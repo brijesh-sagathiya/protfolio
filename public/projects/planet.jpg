@@ -1,0 +1,16 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <radialGradient id="planetGrad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#00ccff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001a33;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00111a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#bg)" />
+  <circle cx="200" cy="150" r="80" fill="url(#planetGrad)" />
+  <ellipse cx="200" cy="150" rx="100" ry="10" fill="#00111a" opacity="0.8" />
+</svg>
