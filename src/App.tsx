@@ -1,16 +1,37 @@
+import { Toaster } from '@/components/ui/toaster';
+import { Toaster as Sonner } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+// Lazy load components
+const Index = lazy(() => import('./pages/Index'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
-// Import framer-motion
-import { AnimatePresence } from "framer-motion";
+// Optimize QueryClient configuration
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
-const queryClient = new QueryClient();
+// Loading component
+const LoadingFallback = () => (
+  <div className="flex min-h-screen items-center justify-center">
+    <motion.div
+      className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"
+      animate={{ rotate: 360 }}
+      transition={{ repeat: Infinity, duration: 0.6, ease: 'linear' }}
+    />
+  </div>
+);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -19,11 +40,12 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </AnimatePresence>
       </BrowserRouter>
     </TooltipProvider>

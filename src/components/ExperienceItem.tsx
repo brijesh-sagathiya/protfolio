@@ -1,6 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import { ChevronDown, ExternalLink } from "lucide-react";
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef, useState } from 'react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 
 interface ExperienceItemProps {
   role: string;
@@ -33,61 +33,55 @@ const ExperienceItem = ({
   const itemRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: itemRef,
-    offset: ["start end", "end start"],
+    offset: ['start end', 'end start'],
   });
 
-  const lineHeight = useTransform(
-    scrollYProgress,
-    [0, 0.3, 1],
-    ["0%", "100%", "100%"]
-  );
+  const lineHeight = useTransform(scrollYProgress, [0, 0.3, 1], ['0%', '100%', '100%']);
   const dotScale = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   return (
     <motion.div
       ref={itemRef}
-      className="relative pl-8 pb-16 last:pb-0 group"
+      className="group relative pb-16 pl-8 last:pb-0"
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: delay * 0.1 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
     >
       {/* Timeline line with animation */}
       <motion.div
-        className="absolute left-0 top-0 w-px bg-gradient-to-b from-blue-500 to-blue-500/20 origin-top"
+        className="absolute left-0 top-0 w-px origin-top bg-gradient-to-b from-blue-500 to-blue-500/20"
         style={{ height: lineHeight }}
       />
 
       {/* Animated dot */}
       <motion.div
-        className="absolute left-[-4px] top-0 w-2 h-2 rounded-full bg-blue-500"
+        className="absolute left-[-4px] top-0 h-2 w-2 rounded-full bg-blue-500"
         style={{ scale: dotScale }}
       />
 
       <motion.div className="space-y-6" style={{ opacity: contentOpacity }}>
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex-1">
-            <h3 className="text-xl sm:text-2xl font-medium text-white group-hover:text-gradient transition-colors duration-300">
+            <h3 className="group-hover:text-gradient text-xl font-medium text-white transition-colors duration-300 sm:text-2xl">
               {role}
             </h3>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="mb-2 flex items-center gap-2">
               <p className="text-lg text-gray-400">{company}</p>
               {websiteUrl && (
                 <a
                   href={websiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                  className="text-blue-400 transition-colors hover:text-blue-300"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="h-4 w-4" />
                 </a>
               )}
             </div>
-            <p className="text-base text-gray-500 leading-relaxed max-w-2xl mb-4">
-              {description}
-            </p>
+            <p className="mb-4 max-w-2xl text-base leading-relaxed text-gray-500">{description}</p>
             <time className="text-sm text-gray-500">{period}</time>
           </div>
         </div>
@@ -97,7 +91,7 @@ const ExperienceItem = ({
           {technologies.map((tech, index) => (
             <motion.span
               key={index}
-              className="px-3 py-1 text-xs rounded-full neo-blur text-gray-300 hover:text-white transition-colors duration-300"
+              className="neo-blur rounded-full px-3 py-1 text-xs text-gray-300 transition-colors duration-300 hover:text-white"
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: delay * 0.1 + index * 0.05 }}
@@ -114,44 +108,36 @@ const ExperienceItem = ({
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
-                className="bg-white/5 rounded-lg overflow-hidden"
+                className="overflow-hidden rounded-lg bg-white/5"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <button
-                  className="w-full px-4 py-3 flex items-center justify-between hover:bg-white/5 transition-colors"
+                  className="flex w-full items-center justify-between px-4 py-3 transition-colors hover:bg-white/5"
                   onClick={() =>
-                    setExpandedProject(
-                      expandedProject === project.title ? null : project.title
-                    )
+                    setExpandedProject(expandedProject === project.title ? null : project.title)
                   }
                 >
-                  <span className="text-white font-medium">
-                    {project.title}
-                  </span>
+                  <span className="font-medium text-white">{project.title}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${
-                      expandedProject === project.title ? "rotate-180" : ""
+                    className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
+                      expandedProject === project.title ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
 
                 {expandedProject === project.title && (
                   <motion.div
-                    className="px-4 pb-4 space-y-4"
+                    className="space-y-4 px-4 pb-4"
                     initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
+                    animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                   >
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {project.description}
-                    </p>
+                    <p className="text-sm leading-relaxed text-gray-400">{project.description}</p>
 
                     <div className="space-y-2">
-                      <h5 className="text-sm font-medium text-white">
-                        Key Achievements:
-                      </h5>
+                      <h5 className="text-sm font-medium text-white">Key Achievements:</h5>
                       <ul className="space-y-2">
                         {project.achievements.map((achievement, i) => (
                           <motion.li
@@ -161,7 +147,7 @@ const ExperienceItem = ({
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.3, delay: i * 0.1 }}
                           >
-                            <span className="text-blue-400 mt-1">•</span>
+                            <span className="mt-1 text-blue-400">•</span>
                             <span>{achievement}</span>
                           </motion.li>
                         ))}
@@ -172,7 +158,7 @@ const ExperienceItem = ({
                       {project.technologies.map((tech, i) => (
                         <span
                           key={i}
-                          className="px-2 py-1 text-xs rounded-full bg-white/10 text-gray-300"
+                          className="rounded-full bg-white/10 px-2 py-1 text-xs text-gray-300"
                         >
                           {tech}
                         </span>

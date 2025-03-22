@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface SkillLogo {
   name: string;
@@ -36,9 +36,9 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
     };
 
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
+    window.addEventListener('resize', checkScreenSize);
 
-    return () => window.removeEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   useEffect(() => {
@@ -55,20 +55,17 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
 
   const handleNext = () => {
     setShowArrows(true);
-    setCurrentPage((prev) => (prev + 1) % totalPages);
+    setCurrentPage(prev => (prev + 1) % totalPages);
   };
 
   const handlePrev = () => {
     setShowArrows(true);
-    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+    setCurrentPage(prev => (prev - 1 + totalPages) % totalPages);
   };
 
   const visibleLogos =
     isMobile || isTablet
-      ? logos.slice(
-          currentPage * itemsPerPage,
-          (currentPage + 1) * itemsPerPage
-        )
+      ? logos.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
       : logos;
 
   return (
@@ -78,11 +75,11 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Desktop Layout */}
-      <div className="hidden md:flex justify-center space-x-4 py-6">
+      <div className="hidden justify-center space-x-4 py-6 md:flex">
         {logos.map((logo, index) => (
           <motion.div
             key={logo.name}
-            className="relative cursor-pointer group"
+            className="group relative cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -90,26 +87,22 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
             onHoverEnd={() => setActiveIndex(null)}
           >
             <div
-              className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full glass-morphism transition-all duration-300 group-hover:scale-110"
+              className="glass-morphism flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110 sm:h-14 sm:w-14"
               style={{
-                boxShadow:
-                  activeIndex === index ? `0 0 15px ${logo.color}` : "none",
-                borderColor:
-                  activeIndex === index
-                    ? logo.color
-                    : "rgba(255, 255, 255, 0.1)",
+                boxShadow: activeIndex === index ? `0 0 15px ${logo.color}` : 'none',
+                borderColor: activeIndex === index ? logo.color : 'rgba(255, 255, 255, 0.1)',
               }}
             >
               <img
                 src={logo.icon}
                 alt={logo.name}
-                className="w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-300 group-hover:scale-110"
+                className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 sm:h-7 sm:w-7"
               />
             </div>
 
             {activeIndex === index && (
               <motion.div
-                className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-2 py-1 rounded text-xs bg-black/80 border border-white/10 backdrop-blur-sm"
+                className="absolute -bottom-8 left-1/2 -translate-x-1/2 transform whitespace-nowrap rounded border border-white/10 bg-black/80 px-2 py-1 text-xs backdrop-blur-sm"
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
@@ -122,13 +115,13 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
       </div>
 
       {/* Mobile/Tablet Layout */}
-      <div className="md:hidden relative">
-        <div className="flex justify-center items-center space-x-4 py-6">
+      <div className="relative md:hidden">
+        <div className="flex items-center justify-center space-x-4 py-6">
           <AnimatePresence>
             {showArrows && (
               <motion.button
                 onClick={handlePrev}
-                className="absolute left-0 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors backdrop-blur-sm"
+                className="absolute left-0 z-10 rounded-full bg-black/50 p-2 backdrop-blur-sm transition-colors hover:bg-black/70"
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -165,7 +158,7 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
               {visibleLogos.map((logo, index) => (
                 <motion.div
                   key={logo.name}
-                  className="relative cursor-pointer group"
+                  className="group relative cursor-pointer"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -173,28 +166,22 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
                   onHoverEnd={() => setActiveIndex(null)}
                 >
                   <div
-                    className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full glass-morphism transition-all duration-300 group-hover:scale-110"
+                    className="glass-morphism flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110 sm:h-14 sm:w-14"
                     style={{
-                      boxShadow:
-                        activeIndex === index
-                          ? `0 0 15px ${logo.color}`
-                          : "none",
-                      borderColor:
-                        activeIndex === index
-                          ? logo.color
-                          : "rgba(255, 255, 255, 0.1)",
+                      boxShadow: activeIndex === index ? `0 0 15px ${logo.color}` : 'none',
+                      borderColor: activeIndex === index ? logo.color : 'rgba(255, 255, 255, 0.1)',
                     }}
                   >
                     <img
                       src={logo.icon}
                       alt={logo.name}
-                      className="w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-300 group-hover:scale-110"
+                      className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 sm:h-7 sm:w-7"
                     />
                   </div>
 
                   {activeIndex === index && (
                     <motion.div
-                      className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-2 py-1 rounded text-xs bg-black/80 border border-white/10 backdrop-blur-sm"
+                      className="absolute -bottom-8 left-1/2 -translate-x-1/2 transform whitespace-nowrap rounded border border-white/10 bg-black/80 px-2 py-1 text-xs backdrop-blur-sm"
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -5 }}
@@ -211,7 +198,7 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
             {showArrows && (
               <motion.button
                 onClick={handleNext}
-                className="absolute right-0 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors backdrop-blur-sm"
+                className="absolute right-0 z-10 rounded-full bg-black/50 p-2 backdrop-blur-sm transition-colors hover:bg-black/70"
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -238,13 +225,13 @@ const SkillCategory = ({ logos }: SkillCategoryProps) => {
         </div>
 
         {/* Page Indicators */}
-        <div className="flex justify-center space-x-2 mt-4">
+        <div className="mt-4 flex justify-center space-x-2">
           {Array.from({ length: totalPages }).map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentPage(index)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                currentPage === index ? "bg-white" : "bg-white/30"
+              className={`h-2 w-2 rounded-full transition-colors ${
+                currentPage === index ? 'bg-white' : 'bg-white/30'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
