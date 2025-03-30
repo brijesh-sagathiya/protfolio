@@ -1,11 +1,21 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 
+import { SupabaseConfig, SupabaseInstance } from '@/types/lib/supabase';
+
 dotenv.config();
 
-const SUPABASE_URL = process.env.SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY as string; // Use Service Role Key
+/**
+ * Supabase configuration
+ */
+const supabaseConfig: SupabaseConfig = {
+  url: process.env.VITE_SUPABASE_URL as string,
+  key: process.env.VITE_SUPABASE_ANON_KEY as string,
+};
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+/**
+ * Supabase client instance
+ */
+export const supabase: SupabaseInstance = createClient(supabaseConfig.url, supabaseConfig.key, {
   auth: { persistSession: false },
 });

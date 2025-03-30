@@ -1,68 +1,165 @@
-# Welcome to Your Project
+# Professional Portfolio
 
-## Project Info
+A modern, responsive portfolio website built with React, TypeScript, and Express.js. This project showcases professional work, skills, and experiences with a beautiful and intuitive user interface.
 
-## How Can I Edit This Code?
+## Description
 
-There are several ways to edit your application.
+This portfolio website features a full-stack implementation with a React frontend and Express.js backend. It includes features like dark/light mode, smooth animations, contact form with email integration, and a responsive design that works across all devices.
 
-### Use Your Preferred IDE
+## Tech Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will be reflected in your deployment.
+### Frontend
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- React 18.3
+- TypeScript 5.8
+- Vite 6.2
+- Tailwind CSS 3.4
+- shadcn-ui (with Radix UI)
+- Framer Motion 12.4
+- React Query (TanStack Query)
+- React Router DOM 7.4
+- next-themes (for dark/light mode)
 
-Follow these steps:
+### Backend
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- Express.js 4.21
+- TypeScript 5.8
+- Supabase
+- Nodemailer
+- Sharp (for image processing)
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Development Tools
 
-# Step 3: Install the necessary dependencies.
-npm i
+- ESLint 9.9
+- Prettier 3.2
+- TypeScript 5.8
+- PostCSS 8.4
+- Autoprefixer 10.4
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## Features
+
+- 🌓 Dark/Light mode support with next-themes
+- 📱 Fully responsive design with Tailwind CSS
+- ✨ Smooth animations with Framer Motion
+- 📬 Contact form with email integration via Nodemailer
+- 🔒 Secure API endpoints with Express.js
+- 🖼️ Image optimization with Sharp
+- 🎨 Modern UI components with shadcn-ui
+- 📊 Project showcase
+- 👤 About section
+- 📝 Blog/Articles section
+- 🔍 SEO optimization with React Helmet
+
+## Installation & Setup
+
+1. Clone the repository:
+
+```bash
+git clone <your-repo-url>
+cd portfolio
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env` file in the root directory with the following variables:
+
+```env
+# Supabase Configuration
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# SMTP Configuration
+SMTP_HOST=your_smtp_host
+SMTP_PORT=your_smtp_port
+SMTP_USER=your_smtp_user
+SMTP_PASS=your_smtp_password
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+```
+
+4. Start the development server:
+
+```bash
 npm run dev
 ```
 
-### Edit a File Directly in GitHub
+5. Build for production:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit them.
+```bash
+npm run build
+```
 
-### Use GitHub Codespaces
+## Project Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Page components
+├── server/        # Express.js backend
+├── providers/     # React context providers
+├── lib/           # Utility functions and configurations
+├── hooks/         # Custom React hooks
+├── utils/         # Helper functions
+├── types/         # TypeScript type definitions
+├── data/          # Static data and content
+├── App.tsx        # Main application component
+└── main.tsx       # Application entry point
+```
 
-## What Technologies Are Used for This Project?
+## Available Scripts
 
-This project is built with:
+- `npm run dev` - Start the development server
+- `npm run build` - Build for production
+- `npm run build:dev` - Build in development mode
+- `npm run preview` - Preview the production build
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+- `npm run lint` - Run ESLint
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## API Documentation
 
-## How Can I Deploy This Project?
+### Contact Form API
 
-You can deploy this project using platforms like Vercel or Netlify. Visit their respective documentation for details:
+- **Endpoint**: `/api/contact`
+- **Method**: POST
+- **Body**:
 
-- [Vercel Deployment](https://vercel.com/docs)
-- [Netlify Deployment](https://docs.netlify.com/)
+```typescript
+{
+  name: string;
+  email: string;
+  message: string;
+}
+```
 
-## Can I Use a Custom Domain?
+### Projects API
 
-Yes! You can configure a custom domain using Vercel or Netlify. Check out their documentation:
+- **Endpoint**: `/api/projects`
+- **Method**: GET
+- **Response**: Array of project objects
 
-- [Vercel Custom Domains](https://vercel.com/docs/custom-domains)
-- [Netlify Custom Domains](https://docs.netlify.com/domains-https/custom-domains/)
+## Contributing
 
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [shadcn-ui](https://ui.shadcn.com/) for the beautiful components
+- [Tailwind CSS](https://tailwindcss.com/) for the styling system
+- [Framer Motion](https://www.framer.com/motion/) for animations
+- [Radix UI](https://www.radix-ui.com/) for accessible components
+- [TanStack Query](https://tanstack.com/query/latest) for data fetching

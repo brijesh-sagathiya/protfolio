@@ -1,14 +1,28 @@
-import { Toaster } from '@/components/ui/toaster';
-import { Toaster as Sonner } from '@/components/ui/sonner';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { Suspense, lazy } from 'react';
 
-// Lazy load components
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AnimatePresence } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import LoadingFallback from '@/components/home/LoadingFallback';
+import ScrollToTop from '@/components/layout/ScrollToTop';
+import { Toaster as Sonner } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui/toaster';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+
+// Lazy load components with preload
 const Index = lazy(() => import('./pages/Index'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Preload components
+const preloadComponents = () => {
+  Promise.all([import('./pages/Index'), import('./pages/NotFound')]);
+};
+
+// Start preloading after initial render
+setTimeout(preloadComponents, 1000);
 
 // Optimize QueryClient configuration
 const queryClient = new QueryClient({
@@ -22,34 +36,30 @@ const queryClient = new QueryClient({
   },
 });
 
-// Loading component
-const LoadingFallback = () => (
-  <div className="flex min-h-screen items-center justify-center">
-    <motion.div
-      className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent"
-      animate={{ rotate: 360 }}
-      transition={{ repeat: Infinity, duration: 0.6, ease: 'linear' }}
-    />
-  </div>
-);
-
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AnimatePresence mode="wait">
-          <Suspense fallback={<LoadingFallback />}>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </AnimatePresence>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <HelmetProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <div className="relative flex min-h-screen flex-col">
+              <AnimatePresence mode="wait">
+                <Suspense fallback={<LoadingFallback />}>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
+                <ScrollToTop />
+              </AnimatePresence>
+            </div>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  </HelmetProvider>
 );
 
 export default App;

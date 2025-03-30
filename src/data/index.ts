@@ -1,4 +1,4 @@
-import { SkillCategory, Project, ExperienceItem, BlogPost, FAQ } from '../types';
+import { SkillCategory, Project, ExperienceItem, BlogPost, FAQ, FooterLink } from '@/types';
 
 export const skillCategories: SkillCategory[] = [
   {
@@ -8,9 +8,9 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Node.js', icon: '/logos/nodejs.svg', color: '#339933' },
       { name: 'NestJS', icon: '/logos/nestjs.svg', color: '#E0234E' },
       { name: 'Express.js', icon: '/logos/expressjs.svg', color: '#000000' },
-      { name: 'Fastify', icon: '/logos/fastify.svg', color: '#FFFFFF' },
+      { name: 'Fastify', icon: '/logos/fastify.svg', color: '#000000' },
       { name: 'Angular', icon: '/logos/angular.svg', color: '#DD0031' },
-      { name: 'Next.js', icon: '/logos/nextjs.svg', color: '#FFFFFF' },
+      { name: 'Next.js', icon: '/logos/nextjs.svg', color: '#000000' },
       { name: 'React', icon: '/logos/react.svg', color: '#61DAFB' },
       { name: 'Vue.js', icon: '/logos/vue.svg', color: '#4FC08D' },
       { name: 'Mongoose', icon: '/logos/mongoose.svg', color: '#880000' },
@@ -255,27 +255,73 @@ export const blogPosts: BlogPost[] = [
 
 export const faqs: FAQ[] = [
   {
-    question: 'How do you ensure scalability in your backend applications?',
+    question: 'What is your development approach?',
     answer:
-      'I design applications using modular architectures, microservices, and efficient database queries. Techniques like caching, load balancing, and indexing help maintain performance at scale.',
+      'I follow a clean code approach with test-driven development (TDD) practices. I focus on writing maintainable, scalable, and well-documented code. I believe in the importance of code reviews and continuous integration/deployment (CI/CD) practices.',
     delay: 0,
   },
   {
-    question: 'What strategies do you use for optimizing API performance?',
+    question: 'How do you handle project deadlines and priorities?',
     answer:
-      'I focus on reducing response times by implementing caching (Redis), optimizing database queries, using pagination, and ensuring efficient request handling with middleware.',
+      'I use agile methodologies and project management tools to track progress and meet deadlines. I prioritize tasks based on business impact and technical dependencies, ensuring timely delivery while maintaining code quality.',
     delay: 1,
   },
   {
-    question: 'How do you handle authentication and security in your applications?',
+    question: 'What is your experience with modern web technologies?',
     answer:
-      'I implement authentication using JWT, OAuth, or session-based strategies. Security best practices include input validation, rate limiting, CORS policies, and using HTTPS.',
+      'I have extensive experience with modern web technologies including React, Node.js, TypeScript, and various databases. I stay updated with the latest trends and best practices in web development through continuous learning and experimentation.',
     delay: 2,
   },
   {
-    question: 'What is your experience with DevOps and deployment?',
+    question: 'How do you approach problem-solving in development?',
     answer:
-      'I have experience with containerization using Docker, CI/CD pipelines, and deploying applications on cloud platforms like AWS, Vercel, and DigitalOcean.',
+      'I follow a systematic approach: first understanding the problem thoroughly, breaking it down into smaller components, researching potential solutions, implementing the most efficient solution, and finally testing and refining the implementation.',
     delay: 3,
+  },
+  {
+    question: 'What is your preferred tech stack?',
+    answer:
+      'I specialize in the MERN (MongoDB, Express.js, React, Node.js) stack with TypeScript. I also have experience with PostgreSQL, NestJS, and various other modern web technologies. I choose the tech stack based on project requirements and scalability needs.',
+    delay: 4,
+  },
+];
+
+export const footerLinks: FooterLink[] = [
+  {
+    title: 'Navigation',
+    links: [
+      { name: 'Home', href: '#home' },
+      { name: 'Projects', href: '#projects' },
+      { name: 'Skills', href: '#skills' },
+      { name: 'Experience', href: '#experience' },
+      { name: 'Blog', href: '#blog' },
+      { name: 'FAQ', href: '#faq' },
+      { name: 'Contact', href: '#contact' },
+    ],
+  },
+  {
+    title: 'Projects',
+    links: [
+      { name: 'Portfolio Website', href: '#' },
+      { name: 'E-Commerce Platform', href: '#' },
+      { name: 'AI-Powered App', href: '#' },
+      { name: 'Business Dashboard', href: '#' },
+    ],
+  },
+  {
+    title: 'Social Media',
+    links: [
+      { name: 'GitHub', href: 'https://github.com' },
+      { name: 'LinkedIn', href: 'https://linkedin.com' },
+      { name: 'Twitter', href: 'https://twitter.com' },
+      { name: 'Instagram', href: 'https://instagram.com' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { name: 'Privacy Policy', href: '#' },
+      { name: 'Terms of Service', href: '#' },
+    ],
   },
 ];

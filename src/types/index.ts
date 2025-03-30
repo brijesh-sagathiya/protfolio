@@ -1,3 +1,46 @@
+/**
+ * Core data types
+ */
+export * from './data';
+
+/**
+ * Component types
+ */
+export * from './components';
+
+/**
+ * API and server types
+ */
+export { API_ENDPOINTS } from './api';
+export type { ApiResponse, ApiEndpoint } from './api';
+
+export type { DbConfig, ProjectService, BlogService, ContactService } from './server';
+
+/**
+ * Utility types
+ */
+export * from './utils';
+
+/**
+ * Theme types
+ */
+export type { Theme, ThemeConfig, ThemeColors } from './theme';
+
+/**
+ * Provider types
+ */
+export * from './providers';
+
+/**
+ * Hook types
+ */
+export * from './hooks';
+
+/**
+ * Page types
+ */
+export * from './pages';
+
 export interface Logo {
   name: string;
   icon: string;
@@ -11,7 +54,7 @@ export interface SkillCategory {
 export interface Project {
   title: string;
   description: string;
-  link: string;
+  link: string | null;
   technologies: string[];
   role: string;
   achievements: string[];
@@ -42,16 +85,18 @@ export interface BlogPost {
       url: string;
     }[];
   };
-  projectDetails?: {
-    timeSpent?: string;
-    rating?: number;
-    efficiency?: number;
-    progress?: number;
-  };
 }
 
 export interface FAQ {
   question: string;
   answer: string;
   delay: number;
+}
+
+export interface FooterLink {
+  title: string;
+  links: {
+    name: string;
+    href: string;
+  }[];
 }

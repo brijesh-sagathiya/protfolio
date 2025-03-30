@@ -1,44 +1,31 @@
+import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import App from './App.tsx';
+import ErrorFallback from './components/common/ErrorFallback';
 import './index.css';
+import { injectThemeVariables } from './utils/theme';
+
+// Initialize theme variables
+injectThemeVariables();
 
 // Performance monitoring
 if (process.env.NODE_ENV === 'production') {
   // Report web vitals
   import('web-vitals').then(vitals => {
-    vitals.onCLS(console.log);
-    vitals.onFID(console.log);
-    vitals.onFCP(console.log);
-    vitals.onLCP(console.log);
-    vitals.onTTFB(console.log);
+    vitals.onCLS(console.warn);
+    vitals.onFID(console.warn);
+    vitals.onFCP(console.warn);
+    vitals.onLCP(console.warn);
+    vitals.onTTFB(console.warn);
   });
 }
 
-// Error boundary for the root
-const ErrorBoundary = ({ children }: { children: React.ReactNode }) => {
-  try {
-    return <>{children}</>;
-  } catch (error) {
-    console.error('Application error:', error);
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <h1 className="mb-4 text-2xl font-bold">Something went wrong</h1>
-          <button
-            onClick={() => window.location.reload()}
-            className="rounded bg-primary px-4 py-2 text-white hover:bg-primary/90"
-          >
-            Reload Page
-          </button>
-        </div>
-      </div>
-    );
-  }
-};
-
-// Render the app with error boundary
-createRoot(document.getElementById('root')!).render(
-  <ErrorBoundary>
+// Create root and render app
+const root = createRoot(document.getElementById('root')!);
+root.render(
+  <ErrorBoundary FallbackComponent={ErrorFallback}>
     <App />
   </ErrorBoundary>
 );
